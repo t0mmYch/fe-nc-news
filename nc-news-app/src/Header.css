@@ -1,0 +1,37 @@
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem;
+    background-color: #225560;
+}
+
+.logo-container {
+    display: flex;
+    align-items: center;
+}
+
+.logo {
+    height: 20px;
+    width: auto;
+    margin-right: 1rem;
+}
+
+.user-info {
+    color: #EDF060;
+}
+
+.user-info a {
+    color: #EDF060;
+    text-decoration: none;
+}
+
+.user-info a:hover {
+    text-decoration: underline;
+}
+
+@media (max-width: 768px) {
+    .logo {
+        height: 40px;
+    }
+}

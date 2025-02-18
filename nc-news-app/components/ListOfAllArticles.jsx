@@ -1,7 +1,8 @@
 import { useState, useEffect } from "react";
 import "../src/ListOfAllArticles.css"
 import { getArticles } from "../utils/axios";
-import fetchedListOfAllArticles from "../utils/fetchedListOfAllArticles";
+import { Link } from "react-router-dom";
+
 
 function ListOfAllArticles() {
   const [articles, setArticles] = useState([]);
@@ -12,8 +13,8 @@ function ListOfAllArticles() {
 
   useEffect(() => {
     getArticles(articleSortedBy, byOrder)
-        .then((response) => {
-            setArticles(response.data.articles);
+        .then((articlesFromApi) => {
+            setArticles(articlesFromApi);
             setIsLoading(false);
         })
         .catch((error) => {
