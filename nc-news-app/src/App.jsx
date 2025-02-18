@@ -3,12 +3,13 @@ import { useState } from "react";
 import { UserAccountProvider } from "../contexts/UserAccount";
 import Home from "../pages/Home";
 import Header from "../components/Header";
-import ListOfAllArticles from "../components/ListOfAllArticles";
 import Login from "../pages/Login";
 import NotFound from "../pages/NotFound";
-import logo from "../src/assets/logo/logo.png";
+// import logo from "./assets/logo/logo.png";
 import "./App.css";
 import Nav from "../components/Nav"
+import ListOfAllArticles from "../components/ListOfAllArticles";
+import IndividualArticle from "../pages/IndividualArticle"
 
 function App() {
   return (
@@ -21,6 +22,7 @@ function App() {
           <Route path="/" element={<Home />} />
           <Route path="/login" element={<Login />} />
           <Route path="/articles" element={<ListOfAllArticles />} />
+          <Route path="/articles/:article_id" element={<IndividualArticle />} />
           <Route path="*" element={<NotFound />} />
         </Routes>
       </UserAccountProvider>
