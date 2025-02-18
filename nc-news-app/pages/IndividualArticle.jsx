@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import "../src/IndividualArticle.css";
 import { useParams } from "react-router-dom";
 import { getArticleById } from "../utils/axios";
+import { getCommentsByArticleId } from "../utils/axios";
 import { Link } from "react-router-dom";
 
 const IndividualArticle = () => {
@@ -42,6 +43,7 @@ const IndividualArticle = () => {
         <span>❤️ {article.votes} votes</span>
         <span>💬 {article.comment_count} comments</span>
       </div>
+      <CommentsForGivenArticle article_id={article_id} />
     </div>
   );
 };

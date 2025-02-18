@@ -12,10 +12,11 @@
 }
 
 .logo {
-    height: 20px;
-    width: auto;
-    margin-right: 1rem;
+    transform: scale(1.5); 
+    transition: transform 0.3s ease;;
 }
+   
+
 
 .user-info {
     color: #EDF060;
@@ -32,6 +33,6 @@
 
 @media (max-width: 768px) {
     .logo {
-        height: 40px;
+        height: 100px;
     }
 }
