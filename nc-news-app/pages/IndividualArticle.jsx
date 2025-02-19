@@ -4,10 +4,11 @@ import { useParams } from "react-router-dom";
 import { getArticleById } from "../utils/axios";
 import { getCommentsByArticleId } from "../utils/axios";
 import { Link } from "react-router-dom";
+import VoteOnAnArticleButton from "../components/VoteOnAnArticleButton";
 
 const IndividualArticle = () => {
   const [article, setArticle] = useState(null);
- // const [isLoading, setIsLoading] = useState(true);
+  // const [isLoading, setIsLoading] = useState(true);
   const { article_id } = useParams();
 
   useEffect(() => {
@@ -23,7 +24,6 @@ const IndividualArticle = () => {
   }, [article_id]);
   //if (!article) return <p>Article Not Found</p>;
   //if (isLoading) return <p>Loading</p>;
- 
 
   return (
     <div className="single-article">
