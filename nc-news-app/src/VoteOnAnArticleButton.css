@@ -1,0 +1,36 @@
+.vote-container {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.vote-button {
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 0.5rem;
+    font-size: 1.2rem;
+    transition: transform 0.2s;
+}
+
+.vote-button:hover {
+    transform: scale(1.1);
+}
+
+.vote-button.voted {
+    background-color: rgba(237, 240, 96, 0.2);
+    border-radius: 50%;
+}
+
+.vote-count {
+    color: #EDF060;
+    font-size: 1.1rem;
+    min-width: 2rem;
+    text-align: center;
+}
+
+.vote-error {
+    color: #ff6b6b;
+    font-size: 0.9rem;
+    margin-left: 1rem;
+}
