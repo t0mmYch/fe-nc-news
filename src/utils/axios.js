@@ -33,3 +33,8 @@ export const patchArticleVotes = (article_id, increment) => {
 export const postingComment = (article_id, dataComment) => {
   return newsApi.post(`/articles/${article_id}/comments`, dataComment);
 };
+
+
+export const deleteComment = (comment_id) => {
+  return newsApi.delete(`/comments/${comment_id}`);
+};
