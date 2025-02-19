@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
-import "../src/ListOfAllArticles.css";
-import { getArticles } from "../../utils/axios";
+import "../ListOfAllArticles.css";
+import { getArticles } from "../utils/axios";
 import { Link } from "react-router-dom";
 
 function ListOfAllArticles() {

@@ -1,10 +1,10 @@
 import { useState, useEffect } from "react";
-import "../src/IndividualArticle.css";
+import "../IndividualArticle.css";
 import { useParams } from "react-router-dom";
 import { getArticleById } from "../utils/axios";
 import { getCommentsByArticleId } from "../utils/axios";
 import { Link } from "react-router-dom";
-import VoteOnAnArticleButton from "../src/components/VoteOnAnArticleButton";
+import VoteOnAnArticleButton from "../components/VoteOnAnArticleButton";
 
 const IndividualArticle = () => {
   const [article, setArticle] = useState(null);

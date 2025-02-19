@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { patchArticleVotes } from "../utils/axios";
-import "../src/VoteOnAnArticleButton.css";
+import "../VoteOnAnArticleButton.css";
 
 const VoteOnAnArticleButton = ({ article_id, initialVotes }) => {
   const [votes, setVotes] = useState(initialVotes);
