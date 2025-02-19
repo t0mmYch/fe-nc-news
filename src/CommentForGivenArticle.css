@@ -24,6 +24,8 @@
     color: #EDF060;
 }
 
+
+
 .comment-header {
     display: flex;
     justify-content: space-between;
@@ -57,4 +59,46 @@
         flex-direction: column;
         gap: 0.25rem;
     }
+}
+
+.delete-button {
+    background: none;
+    border: 1px solid #ff6b6b;
+    color: #ff6b6b;
+    padding: 0.5rem 1rem;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: all 0.2s;
+    margin-left: auto;
+}
+
+.delete-button:hover:not(:disabled) {
+    background: #ff6b6b;
+    color: white;
+}
+
+.delete-button:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+
+.comment-footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 0.5rem;
+}
+
+.comment-card {
+    opacity: 1;
+    transition: opacity 0.3s ease;
+}
+
+.comment-card.deleting {
+    opacity: 0.5;
+}
+.error-message {
+    color: #ff6b6b;
+    margin-top: 0.5rem;
+    font-size: 0.9rem;
 }
