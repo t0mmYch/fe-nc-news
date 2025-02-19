@@ -8,7 +8,7 @@ import VoteOnAnArticleButton from "../components/VoteOnAnArticleButton";
 
 const IndividualArticle = () => {
   const [article, setArticle] = useState(null);
-  // const [isLoading, setIsLoading] = useState(true);
+ 
   const { article_id } = useParams();
 
   useEffect(() => {
@@ -18,12 +18,10 @@ const IndividualArticle = () => {
         setIsLoading(false);
       })
       .catch((error) => {
-        console.log(error);
         setIsLoading(false);
       });
   }, [article_id]);
-  //if (!article) return <p>Article Not Found</p>;
-  //if (isLoading) return <p>Loading</p>;
+
 
   return (
     <div className="single-article">

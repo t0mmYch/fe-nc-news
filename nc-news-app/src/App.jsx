@@ -11,6 +11,7 @@ import Nav from "../components/Nav"
 import ListOfAllArticles from "../components/ListOfAllArticles";
 import IndividualArticle from "../pages/IndividualArticle"
 
+
 function App() {
   return (
     <div>
