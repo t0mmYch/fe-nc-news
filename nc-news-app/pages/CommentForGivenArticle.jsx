@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import { getCommentsByArticleId } from "../utils/axios";
 import "../styles/Comments.css";
+import PostNewComment from "../components/PostNewComment";
 
 const CommentForGivenArticle = ({ article_id }) => {
   const [comments, setComments] = useState([]);
@@ -13,7 +14,6 @@ const CommentForGivenArticle = ({ article_id }) => {
         setIsLoading(false);
       })
       .catch((error) => {
-        console.log(error);
         setIsLoading(false);
       });
   }, [article_id]);
@@ -21,7 +21,13 @@ const CommentForGivenArticle = ({ article_id }) => {
   if (isLoading) return <p>Loading comments...</p>;
 
   return (
-    <section className="comments-section">
+<section className="comments-section">
+            <CommentForm 
+                article_id={article_id} 
+                onNewComment={handleNewComment}
+            />
+
+    
       <h3>Comments ({comments.length})</h3>
       {comments.length === 0 ? (
         <p>No Comments</p>

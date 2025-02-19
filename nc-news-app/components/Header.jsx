@@ -5,7 +5,6 @@ import logo from "../src/assets/logo/logo.png";
 
 const Header = () => {
   const { loggedInUser } = useContext(UserAccount);
-  console.log(loggedInUser);
   return (
     <header className="header">
       <Link to="/" className="logo-container">
