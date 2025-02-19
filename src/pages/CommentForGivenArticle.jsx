@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { getCommentsByArticleId, deleteComment } from "../utils/axios";
-import "../styles/Comments.css";
+import "../CommentsForGivenArticle.css";
 import PostNewComment from "../components/PostNewComment";
 
 const CommentForGivenArticle = ({ article_id }) => {

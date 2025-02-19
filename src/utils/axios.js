@@ -34,7 +34,18 @@ export const postingComment = (article_id, dataComment) => {
   return newsApi.post(`/articles/${article_id}/comments`, dataComment);
 };
 
-
 export const deleteComment = (comment_id) => {
   return newsApi.delete(`/comments/${comment_id}`);
+};
+
+export const getTopics = () => {
+  return newsApi.get(`${baseURL}/topics`);
+};
+
+export const getArticlesByTopic = (topic_slug) => {
+  return newsApi.get(`${baseURL}/articles`, {
+    params: {
+      topic: topic_slug
+  }
+  });
 };

@@ -9,6 +9,8 @@ import "./App.css";
 import Nav from "./components/Nav";
 import ListOfAllArticles from "./components/ListOfAllArticles";
 import IndividualArticle from "./pages/IndividualArticle";
+import PagesTopic from "./pages/PagesTopic";
+import Topics from "./pages/Topics";
 
 function App() {
   return (
@@ -21,6 +23,8 @@ function App() {
           <Route path="/login" element={<Login />} />
           <Route path="/articles" element={<ListOfAllArticles />} />
           <Route path="/articles/:article_id" element={<IndividualArticle />} />
+          <Route path="/topics" element={<Topics />} />
+          <Route path="/topics/:topic_slug" element={<PagesTopic />} />
           <Route path="*" element={<NotFound />} />
         </Routes>
       </UserAccountProvider>
