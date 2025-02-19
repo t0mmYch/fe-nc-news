@@ -1,8 +1,7 @@
 import { useState, useEffect } from "react";
-import "../src/ListOfAllArticles.css"
-import { getArticles } from "../utils/axios";
+import "../src/ListOfAllArticles.css";
+import { getArticles } from "../../utils/axios";
 import { Link } from "react-router-dom";
-
 
 function ListOfAllArticles() {
   const [articles, setArticles] = useState([]);
@@ -13,14 +12,14 @@ function ListOfAllArticles() {
 
   useEffect(() => {
     getArticles(articleSortedBy, byOrder)
-        .then((articlesFromApi) => {
-            setArticles(articlesFromApi);
-            setIsLoading(false);
-        })
-        .catch((error) => {
-            setIsLoading(false);
-        });
-}, [articleSortedBy, byOrder]);
+      .then((articlesFromApi) => {
+        setArticles(articlesFromApi);
+        setIsLoading(false);
+      })
+      .catch((error) => {
+        setIsLoading(false);
+      });
+  }, [articleSortedBy, byOrder]);
 
   if (isLoading) return <div className="loading-spinner">Loading...</div>;
   if (error) return <div className="error-message">{error}</div>;

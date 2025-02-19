@@ -21,13 +21,9 @@ const CommentForGivenArticle = ({ article_id }) => {
   if (isLoading) return <p>Loading comments...</p>;
 
   return (
-<section className="comments-section">
-            <CommentForm 
-                article_id={article_id} 
-                onNewComment={handleNewComment}
-            />
+    <section className="comments-section">
+      <CommentForm article_id={article_id} onNewComment={handleNewComment} />
 
-    
       <h3>Comments ({comments.length})</h3>
       {comments.length === 0 ? (
         <p>No Comments</p>

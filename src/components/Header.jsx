@@ -1,5 +1,5 @@
 import { useContext } from "react";
-import { UserAccount } from "../contexts/UserAccount";
+import { UserAccount } from "../../contexts/UserAccount";
 import { Link } from "react-router-dom";
 import logo from "../src/assets/logo/logo.png";
 
