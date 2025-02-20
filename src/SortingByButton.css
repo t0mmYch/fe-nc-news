@@ -1,0 +1,60 @@
+.sort-container {
+    background: #225560;
+    padding: 1.5rem;
+    border-radius: 8px;
+    margin-bottom: 2rem;
+    border: 1px solid #EDF060;
+}
+
+.sort-container h3 {
+    color: #EDF060;
+    margin-bottom: 1rem;
+    text-align: center;
+}
+
+.sort-buttons {
+    display: flex;
+    gap: 1rem;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+
+.sort-button {
+    background: transparent;
+    color: #EDF060;
+    border: 2px solid #EDF060;
+    padding: 0.8rem 1.5rem;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 1rem;
+    transition: all 0.3s ease;
+    min-width: 120px;
+}
+
+.sort-button:hover {
+    background: rgba(237, 240, 96, 0.1);
+}
+
+.sort-button.active {
+    background: #EDF060;
+    color: #225560;
+    font-weight: bold;
+}
+
+.sort-button.active.asc::after {
+    content: ' ↑';
+}
+
+.sort-button.active.desc::after {
+    content: ' ↓';
+}
+
+@media (max-width: 768px) {
+    .sort-buttons {
+        flex-direction: column;
+    }
+
+    .sort-button {
+        width: 100%;
+    }
+}

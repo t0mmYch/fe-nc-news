@@ -3,17 +3,16 @@ import axios from "axios";
 const newsApi = axios.create({
   baseURL: "https://solo-project-4fr3.onrender.com/api",
 });
-export const getArticles = (sort_by, order) => {
+export const getArticles = (sort_by='created_at', order='desc', topic_slug) => {
   return newsApi
-    .get("/articles", {
+    .get('/articles/', {
       params: {
         sort_by,
         order,
-      },
+        topic_slug
+      }
     })
-    .then((response) => {
-      return response.data.articles;
-    });
+ 
 };
 
 export const getArticleById = (article_id) => {
@@ -39,13 +38,14 @@ export const deleteComment = (comment_id) => {
 };
 
 export const getTopics = () => {
-  return newsApi.get(`${baseURL}/topics`);
+  return newsApi.get('/topics');
 };
 
 export const getArticlesByTopic = (topic_slug) => {
-  return newsApi.get(`${baseURL}/articles`, {
+  return newsApi.get('/articles', {
     params: {
       topic: topic_slug
   }
   });
 };
+
