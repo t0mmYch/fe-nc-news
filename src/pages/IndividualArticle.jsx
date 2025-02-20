@@ -5,6 +5,7 @@ import { getArticleById } from "../utils/axios";
 import { getCommentsByArticleId } from "../utils/axios";
 import { Link } from "react-router-dom";
 import VoteOnAnArticleButton from "../components/VoteOnAnArticleButton";
+import NotFound from "./NotFound";
 
 const IndividualArticle = () => {
   const [article, setArticle] = useState(null);
@@ -18,6 +19,26 @@ const IndividualArticle = () => {
         setIsLoading(false);
       })
       .catch((error) => {
+        if (error.response) {
+          if (error.response.status === 404) {
+            setError({ status: 404, message: "Article Not Found" });
+          } else {
+            setError({
+              status: error.response.status,
+              message: error.response.data.msg || "Something Went Wrong",
+            });
+          }
+        } else if (error.request) {
+          setError({
+            status: 500,
+            message: "Unable To Connect",
+          });
+        } else {
+          setError({
+            status: 500,
+            message: "Something Went Wrong",
+          });
+        }
         setIsLoading(false);
       });
   }, [article_id]);

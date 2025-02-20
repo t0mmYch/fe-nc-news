@@ -2,13 +2,15 @@ import { useState, useContext } from "react";
 import { UserAccount } from "../contexts/UserAccount";
 import CommentForGivenArticle from "../pages/CommentForGivenArticle";
 import "../src/PostNewComment.css";
+import { postingComment } from "../utils/axios";
 
-const PostNewComment = () => {
+const PostNewComment = ({article_id, onNewComment }) => {
   const [comment, setComment] = useState("");
   const [subNewComment, setSubNewComment] = useState(false);
   const [successfulMessage, setSuccessfulMessage] = useState("");
   const { loggedInUser } = useContext(UserAccount);
-
+  const [error, setError] = useState(null);
+  
   const submitHandle = (e) => {
     e.preventDefault();
 

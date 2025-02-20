@@ -10,7 +10,6 @@ function ListOfAllArticles() {
   const [articles, setArticles] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState(null);
-
   const [searchParams] = useSearchParams();
 
   useEffect(() => {
@@ -40,27 +39,33 @@ function ListOfAllArticles() {
       <SortingByButton />
       <div className="articles-grid">
         {articles.map((article) => (
-          <article key={article.article_id} className="article-card">
-            <img
-              src={article.article_img_url}
-              alt=""
-              className="article-image"
-            />
-            <div className="article-content">
-              <h3>{article.title}</h3>
-              <div className="article-metadata">
-                <span className="topic">{article.topic}</span>
-                <span className="author">By {article.author}</span>
+          <Link
+            to={`/articles/${article.article_id}`}
+            key={article.article_id}
+            className="article-link"
+          >
+            <article className="article-card">
+              <img
+                src={article.article_img_url}
+                alt=""
+                className="article-image"
+              />
+              <div className="article-content">
+                <h3>{article.title}</h3>
+                <div className="article-metadata">
+                  <span className="topic">{article.topic}</span>
+                  <span className="author">By {article.author}</span>
+                </div>
+                <div className="article-stats">
+                  <span>💬 {article.comment_count}</span>
+                  <span>❤️ {article.votes}</span>
+                  <span>
+                    📅 {new Date(article.created_at).toLocaleDateString()}
+                  </span>
+                </div>
               </div>
-              <div className="article-stats">
-                <span>💬 {article.comment_count}</span>
-                <span>❤️ {article.votes}</span>
-                <span>
-                  📅 {new Date(article.created_at).toLocaleDateString()}
-                </span>
-              </div>
-            </div>
-          </article>
+            </article>
+          </Link>
         ))}
       </div>
     </section>
