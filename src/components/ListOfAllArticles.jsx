@@ -2,31 +2,42 @@ import { useState, useEffect } from "react";
 import "../ListOfAllArticles.css";
 import { getArticles } from "../utils/axios";
 import { Link } from "react-router-dom";
+import ArticleSorting from "./ArticleSorting";
+import { useSearchParams } from "react-router-dom";
+import SortingByButton from "./SortingByButton";
 
 function ListOfAllArticles() {
   const [articles, setArticles] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState(null);
-  const [articleSortedBy, setArticleSortedBy] = useState("created_at");
-  const [byOrder, setByOrder] = useState("desc");
+
+  const [searchParams] = useSearchParams();
 
   useEffect(() => {
-    getArticles(articleSortedBy, byOrder)
-      .then((articlesFromApi) => {
-        setArticles(articlesFromApi);
+    setIsLoading(true);
+    setError(null);
+
+    const sort_by = searchParams.get("sort_by") || "created_at";
+    const order = searchParams.get("order") || "desc";
+
+    getArticles(sort_by, order)
+      .then((response) => {
+        setArticles(response.data.articles);
         setIsLoading(false);
       })
-      .catch((error) => {
+      .catch((err) => {
+        setError("Failed to load articles");
         setIsLoading(false);
       });
-  }, [articleSortedBy, byOrder]);
+  }, [searchParams]);
 
-  if (isLoading) return <div className="loading-spinner">Loading...</div>;
-  if (error) return <div className="error-message">{error}</div>;
+  if (isLoading) return <p>Loading articles...</p>;
+  if (error) return <p className="error-message">{error}</p>;
 
   return (
     <section className="articles-section">
       <h2>Latest Articles</h2>
+      <SortingByButton />
       <div className="articles-grid">
         {articles.map((article) => (
           <article key={article.article_id} className="article-card">
@@ -44,6 +55,9 @@ function ListOfAllArticles() {
               <div className="article-stats">
                 <span>💬 {article.comment_count}</span>
                 <span>❤️ {article.votes}</span>
+                <span>
+                  📅 {new Date(article.created_at).toLocaleDateString()}
+                </span>
               </div>
             </div>
           </article>

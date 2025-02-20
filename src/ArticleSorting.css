@@ -1,0 +1,43 @@
+.sort-controls {
+    display: flex;
+    gap: 1rem;
+    padding: 1rem;
+    background: #225560;
+    border-radius: 8px;
+    margin-bottom: 2rem;
+}
+
+.sort-group {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.sort-group label {
+    color: #EDF060;
+}
+
+.sort-group select {
+    padding: 0.5rem;
+    border: 1px solid #EDF060;
+    border-radius: 4px;
+    background: transparent;
+    color: #EDF060;
+    cursor: pointer;
+}
+
+.sort-group select:hover {
+    background: rgba(237, 240, 96, 0.1);
+}
+
+.sort-group select option {
+    background: #225560;
+    color: #EDF060;
+}
+
+@media (max-width: 768px) {
+    .sort-controls {
+        flex-direction: column;
+        gap: 0.5rem;
+    }
+}

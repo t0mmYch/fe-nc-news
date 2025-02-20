@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import { useParams, Link } from "react-router-dom";
 import { getArticlesByTopic } from "../utils/axios";
-import "../styles/TopicPage.css";
+import "../Topics.css";
 
 const PagesTopic = () => {
   const { topic_slug } = useParams();
