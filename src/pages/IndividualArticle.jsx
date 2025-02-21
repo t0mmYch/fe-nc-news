@@ -49,20 +49,7 @@ const IndividualArticle = () => {
       });
   }, [article_id]);
 
-  if (isLoading) {
-    return (
-      <div className="single-article">
-        <div className="loading-skeleton" style={{height: "40px", marginBottom: "1.5rem"}}></div>
-        <div className="article-info">
-          {[1,2,3].map(i => (
-            <div key={i} className="loading-skeleton" style={{width: "100px", height: "24px"}}></div>
-          ))}
-        </div>
-        <div className="loading-skeleton" style={{height: "400px", marginBottom: "2rem"}}></div>
-        <div className="loading-skeleton" style={{height: "200px"}}></div>
-      </div>
-    );
-  }
+  if (isLoading) return <p>Loading article...</p>;
   if (error) return <NotFound status={error.status} message={error.message} />;
   if (!article) return null;
 
@@ -86,8 +73,9 @@ const IndividualArticle = () => {
         <span>❤️ {article.votes} votes</span>
         <span>💬 {article.comment_count} comments</span>
       </div>
+      {article && <VoteOnAnArticleButton article={article} />}
       <VoteOnAnArticleButton article={article} />
-      <CommentsForGivenArticle article_id={article_id} />
+      <CommentForGivenArticle article_id={article_id} />
     </div>
   );
 };

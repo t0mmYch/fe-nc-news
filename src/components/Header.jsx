@@ -2,6 +2,7 @@ import { useContext } from "react";
 import { UserAccount } from "../contexts/UserAccount";
 import { Link } from "react-router-dom";
 import logo from "../assets/logo/logo.png";
+import '../Header.css'
 
 const Header = () => {
   const { loggedInUser } = useContext(UserAccount);
