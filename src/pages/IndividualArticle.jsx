@@ -5,14 +5,20 @@ import { getArticleById } from "../utils/axios";
 import { getCommentsByArticleId } from "../utils/axios";
 import { Link } from "react-router-dom";
 import VoteOnAnArticleButton from "../components/VoteOnAnArticleButton";
+import CommentForGivenArticle from "./CommentForGivenArticle";
 import NotFound from "./NotFound";
+
 
 const IndividualArticle = () => {
   const [article, setArticle] = useState(null);
+  const [isLoading, setIsLoading] = useState(true);
+  const [error, setError] = useState(null);
 
   const { article_id } = useParams();
 
   useEffect(() => {
+    setIsLoading(true);
+    setError(null);
     getArticleById(article_id)
       .then((response) => {
         setArticle(response.data.article);
@@ -43,6 +49,25 @@ const IndividualArticle = () => {
       });
   }, [article_id]);
 
+  if (isLoading) {
+    return (
+      <div className="single-article">
+        <div className="loading-skeleton" style={{height: "40px", marginBottom: "1.5rem"}}></div>
+        <div className="article-info">
+          {[1,2,3].map(i => (
+            <div key={i} className="loading-skeleton" style={{width: "100px", height: "24px"}}></div>
+          ))}
+        </div>
+        <div className="loading-skeleton" style={{height: "400px", marginBottom: "2rem"}}></div>
+        <div className="loading-skeleton" style={{height: "200px"}}></div>
+      </div>
+    );
+  }
+  if (error) return <NotFound status={error.status} message={error.message} />;
+  if (!article) return null;
+
+
+  
   return (
     <div className="single-article">
       <h2>{article.title}</h2>
@@ -61,6 +86,7 @@ const IndividualArticle = () => {
         <span>❤️ {article.votes} votes</span>
         <span>💬 {article.comment_count} comments</span>
       </div>
+      <VoteOnAnArticleButton article={article} />
       <CommentsForGivenArticle article_id={article_id} />
     </div>
   );
