@@ -1,7 +1,6 @@
 import { useState, useContext } from "react";
 import { UserAccount } from "../contexts/UserAccount";
-import CommentForGivenArticle from "../pages/CommentForGivenArticle";
-import "../src/PostNewComment.css";
+import "../PostNewComment.css";
 import { postingComment } from "../utils/axios";
 
 const PostNewComment = ({article_id, onNewComment }) => {
@@ -11,7 +10,7 @@ const PostNewComment = ({article_id, onNewComment }) => {
   const { loggedInUser } = useContext(UserAccount);
   const [error, setError] = useState(null);
   
-  const submitHandle = (e) => {
+  const handleSubmit = (e) => {
     e.preventDefault();
 
     if (!loggedInUser) {
@@ -24,9 +23,10 @@ const PostNewComment = ({article_id, onNewComment }) => {
     }
 
     setSubNewComment(true);
-    setSuccessMessage("");
+    setSuccessfulMessage("");
+    setError(null);
 
-    postComment(article_id, {
+    postingComment(article_id, {
       username: loggedInUser.username,
       body: comment,
     })
@@ -45,7 +45,7 @@ const PostNewComment = ({article_id, onNewComment }) => {
   };
 
   return (
-    <form onSubmit={submitHandle} className="comment-form">
+    <form onSubmit={handleSubmit} className="comment-form">
       <h3>Add a Comment</h3>
       {!loggedInUser && <p className="login-prompt">Log in to comment</p>}
       <textarea

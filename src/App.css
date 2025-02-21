@@ -37,3 +37,88 @@ p {
   text-align: center;
 }
 
+
+.article-info, 
+.article-stats,
+.comment-info {
+  font-weight: 600;
+  color: #EDF060;
+  display: flex;
+  gap: 1.5rem;
+  flex-wrap: wrap;
+  margin: 1rem 0;
+}
+
+
+.article-info span,
+.article-stats span,
+.comment-info span {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  background: rgba(34, 85, 96, 0.8);
+  padding: 0.5rem 1rem;
+  border-radius: 20px;
+  border: 1px solid #EDF060;
+  font-size: 1.1rem;
+}
+
+
+.article-info span svg,
+.article-stats span svg {
+  width: 1.2em;
+  height: 1.2em;
+}
+
+
+.article-date,
+.comment-date {
+  font-family: monospace;
+  letter-spacing: 0.5px;
+}
+
+
+.article-author,
+.comment-author {
+  font-weight: 700;
+  color: #EDF060;
+}
+
+
+.comments-count {
+  background: #EDF060;
+  color: #225560;
+  padding: 0.2rem 0.8rem;
+  border-radius: 12px;
+  font-weight: bold;
+}
+
+
+.article-info span:hover,
+.article-stats span:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+  transition: all 0.3s ease;
+}
+
+
+.app {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  background: #225560;
+}
+
+.main-content {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+

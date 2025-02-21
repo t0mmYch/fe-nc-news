@@ -2,24 +2,56 @@ import { useState } from "react";
 import { patchArticleVotes } from "../utils/axios";
 import "../VoteOnAnArticleButton.css";
 
-const VoteOnAnArticleButton = ({ article_id, initialVotes }) => {
-  const [votes, setVotes] = useState(initialVotes);
+const VoteOnAnArticleButton = ({ article }) => {
   const [userVote, setUserVote] = useState(0);
   const [error, setError] = useState(null);
+  const [isLoading, setIsLoading] = useState(false);
+  const [votes, setVotes] = useState(article.votes);
 
-  const handleTheVote = (voteChange) => {
-    if (voteChange === userVote) return;
+  const handleTheVote = async(increment) => {
+    if (isLoading) return;
 
-    const newVoteCount = votes + (voteChange - userVote);
-    setVotes(newVoteCount);
-    setUserVote(voteChange);
+    // If clicking the same button again, remove the vote
+    if ((increment === 1 && userVote === 1) || (increment === -1 && userVote === -1)) {
+      const previousVote = userVote;
+      setUserVote(0);
+      setVotes(votes - previousVote);
+      
+      try {
+        setIsLoading(true);
+        await patchArticleVotes(article.article_id, -previousVote);
+      } catch (err) {
+        // Revert on error
+        setUserVote(previousVote);
+        setVotes(votes);
+        setError("Failed to update vote. Please try again.");
+      } finally {
+        setIsLoading(false);
+      }
+      return;
+    }
+
+    // Calculate vote change
+    const voteChange = increment - userVote;
+    const previousVote = userVote;
+    const previousVotes = votes;
+
+    // Optimistically update UI
+    setUserVote(increment);
+    setVotes(votes + voteChange);
     setError(null);
 
-    patchArticleVotes(article_id, voteChange).catch((err) => {
-      setVotes(votes);
-      setUserVote(0);
-      setError("Failed To Update The Vote");
-    });
+    try {
+      setIsLoading(true);
+      await patchArticleVotes(article.article_id, voteChange);
+    } catch (err) {
+      // Revert on error
+      setUserVote(previousVote);
+      setVotes(previousVotes);
+      setError("Failed to update vote. Please try again.");
+    } finally {
+      setIsLoading(false);
+    }
   };
 
   return (
@@ -27,17 +59,19 @@ const VoteOnAnArticleButton = ({ article_id, initialVotes }) => {
       <button
         className={`vote-button ${userVote === 1 ? "voted" : ""}`}
         onClick={() => handleTheVote(1)}
+        disabled={isLoading}
         aria-label="Upvote"
       >
-        👍
+        👍 
       </button>
-      <span className="vote-count">{votes}</span>
+      <span className="vote-count">{article.votes + userVote}</span>
       <button
         className={`vote-button ${userVote === -1 ? "voted" : ""}`}
         onClick={() => handleTheVote(-1)}
+        disabled={isLoading}
         aria-label="Downvote"
       >
-        👎
+        👎 
       </button>
       {error && <p className="vote-error">{error}</p>}
     </div>

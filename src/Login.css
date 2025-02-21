@@ -1,102 +1,181 @@
 .login-button {
-    background: #EDF060;
-    color: #225560;
-    border: none;
-    padding: 1rem;
-    border-radius: 6px;
-    font-size: 1rem;
-    font-weight: bold;
-    cursor: pointer;
-    transition: all 0.3s ease;
+  background: #edf060;
+  color: #225560;
+  border: none;
+  padding: 1rem;
+  border-radius: 6px;
+  font-size: 1rem;
+  font-weight: bold;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  width: 100%;
+  position: relative;
+  overflow: hidden;
 }
 
+.login-container {
+    min-height: 80vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 2rem;
+    background: #225560;
+    margin-top: 2rem; 
+  }
+  
+  .login-card {
+    background: rgba(34, 85, 96, 0.9);
+    border: 2px solid #EDF060;
+    border-radius: 12px;
+    padding: 2.5rem;
+    width: 100%;
+    max-width: 500px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+  }
+  
+  .login-header {
+    text-align: center;
+    margin-bottom: 2rem;
+  }
+  
+  .login-header h2 {
+    color: #EDF060;
+    font-size: 2.5rem;
+    margin-bottom: 1rem;
+  }
+  
+  .login-header p {
+    color: #EDF060;
+    font-size: 1.1rem;
+    opacity: 0.9;
+  }
+  
 .login-button:hover:not(:disabled) {
-    transform: translateY(-2px);
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+  background: #f4f7a1;
 }
 
 .login-button:disabled {
-    opacity: 0.7;
-    cursor: not-allowed;
+  opacity: 0.7;
+  cursor: not-allowed;
 }
 
 .login-button.loading {
-    position: relative;
-    color: transparent;
+  position: relative;
+  color: transparent;
 }
 
 .login-button.loading::after {
-    content: "";
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    width: 20px;
-    height: 20px;
-    margin: -10px 0 0 -10px;
-    border: 3px solid #225560;
-    border-top-color: transparent;
-    border-radius: 50%;
-    animation: spin 0.8s linear infinite;
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 20px;
+  height: 20px;
+  margin: -10px 0 0 -10px;
+  border: 3px solid #225560;
+  border-top-color: transparent;
+  border-radius: 50%;
+  animation: spin 0.8s linear infinite;
 }
 
+
+
+.success-message {
+    color: #51cf66;
+    text-align: center;
+    padding: 0.75rem;
+    background: rgba(81, 207, 102, 0.1);
+    border-radius: 6px;
+    margin: 0.5rem 0;
+    font-size: 0.9rem;
+    border: 1px solid rgba(81, 207, 102, 0.2);
+  }
+  
+  .form-group input.error {
+    border-color: #ff6b6b;
+  }
+  
+  .demo-user-button.selected {
+    background: rgba(237, 240, 96, 0.2);
+    border-width: 2px;
+  }
+  
+
+  @keyframes fadeIn {
+    from { opacity: 0; transform: translateY(-10px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+  
+  .success-message {
+    animation: fadeIn 0.3s ease-out;
+  }
+
 @keyframes spin {
-    to {
-        transform: rotate(360deg);
-    }
+    from { 
+        transform: rotate(0deg);
+     }
+  to {
+    transform: rotate(360deg);
+  }
 }
 
 .error-message {
-    color: #ff6b6b;
-    text-align: center;
-    padding: 0.5rem;
-    background: rgba(255, 107, 107, 0.1);
-    border-radius: 4px;
+  color: #ff6b6b;
+  text-align: center;
+  padding: 0.5rem;
+  background: rgba(255, 107, 107, 0.1);
+  border-radius: 4px;
+  margin: 0.5rem 0;
+  font-size: 0.9rem;
+  border: 1px solid rgba(255, 107, 107, 0.2);
 }
 
 .demo-users {
-    margin-top: 2rem;
-    padding-top: 1rem;
-    border-top: 1px solid rgba(237, 240, 96, 0.2);
+  margin-top: 2rem;
+  padding-top: 1rem;
+  border-top: 1px solid rgba(237, 240, 96, 0.2);
 }
 
 .demo-users p {
-    color: #EDF060;
-    text-align: center;
-    margin-bottom: 1rem;
-    font-size: 0.9rem;
+  color: #edf060;
+  text-align: center;
+  margin-bottom: 1rem;
+  font-size: 0.9rem;
 }
 
 .demo-users-list {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
-    gap: 0.5rem;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+  gap: 0.5rem;
 }
 
 .demo-user-button {
-    background: transparent;
-    border: 1px solid #EDF060;
-    color: #EDF060;
-    padding: 0.5rem;
-    border-radius: 4px;
-    font-size: 0.8rem;
-    cursor: pointer;
-    transition: all 0.3s ease;
+  background: transparent;
+  border: 1px solid #edf060;
+  color: #edf060;
+  padding: 0.5rem;
+  border-radius: 4px;
+  font-size: 0.8rem;
+  cursor: pointer;
+  transition: all 0.3s ease;
 }
 
 .demo-user-button:hover {
-    background: rgba(237, 240, 96, 0.1);
+  background: rgba(237, 240, 96, 0.1);
 }
 
 @media (max-width: 480px) {
-    .login-card {
-        padding: 1.5rem;
-    }
+  .login-card {
+    padding: 1.5rem;
+  }
 
-    .login-header h2 {
-        font-size: 1.5rem;
-    }
+  .login-header h2 {
+    font-size: 1.5rem;
+  }
 
-    .demo-users-list {
-        grid-template-columns: 1fr;
-    }
+  .demo-users-list {
+    grid-template-columns: 1fr;
+  }
 }

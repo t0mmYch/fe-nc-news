@@ -1,13 +1,16 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useContext } from "react";
 import { getCommentsByArticleId, deleteComment } from "../utils/axios";
-import "../CommentsForGivenArticle.css";
+import "../CommentForGivenArticle.css";
 import PostNewComment from "../components/PostNewComment";
+import { UserAccount } from "../contexts/UserAccount";
+
 
 const CommentForGivenArticle = ({ article_id }) => {
   const [comments, setComments] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
   const [deletingComments, setDeletingComments] = useState(new Set());
   const { loggedInUser } = useContext(UserAccount);
+  const [error, setError] = useState(null)
 
   useEffect(() => {
     getCommentsByArticleId(article_id)
@@ -21,8 +24,9 @@ const CommentForGivenArticle = ({ article_id }) => {
       });
   }, [article_id]);
 
+
   const handleNewComment = (newComment) => {
-    setComments([newComment, ...comments]);
+    setComments((currentComments) => [newComment, ...currentComments]);
   };
 
   const handleDeleteComment = (comment_id) => {
@@ -31,8 +35,8 @@ const CommentForGivenArticle = ({ article_id }) => {
 
       deleteComment(comment_id)
         .then(() => {
-          setComments(
-            comments.filter((comment) => comment.comment_id !== comment_id)
+          setComments((currentComments) => 
+            currentComments.filter((comment) => comment.comment_id !== comment_id)
           );
         })
         .catch((error) => {
@@ -50,10 +54,11 @@ const CommentForGivenArticle = ({ article_id }) => {
   };
 
   if (isLoading) return <p>Loading comments...</p>;
+  if (error) return <p className="error-message">{error}</p>;
 
   return (
     <section className="comments-section">
-      <CommentForm article_id={article_id} onNewComment={handleNewComment} />
+      <PostNewComment article_id={article_id} onNewComment={handleNewComment} />
 
       <h3>Comments ({comments.length})</h3>
       {comments.length === 0 ? (
