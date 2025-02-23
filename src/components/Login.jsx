@@ -23,6 +23,7 @@ const Login = () => {
 
   useEffect(() => {
     const savedUser = localStorage.getItem("loggedInUser");
+    console.log(savedUser)
     if (savedUser) {
       try {
         const user = JSON.parse(savedUser);

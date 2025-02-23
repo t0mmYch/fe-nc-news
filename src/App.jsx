@@ -1,5 +1,6 @@
 import { Routes, Route } from "react-router-dom";
 import { useState } from "react";
+// import AuthenticationRoute from "./components/AuthenticationRoute";
 import { UserAccountProvider } from "./contexts/UserAccount";
 import Home from "./pages/Home";
 import Header from "./components/Header";

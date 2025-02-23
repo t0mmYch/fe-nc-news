@@ -17,8 +17,14 @@ export const UserAccountProvider = ({ children }) => {
     }
   }, []);
 
+  const handleSetLoggedInUser = (user) => {
+    console.log('Setting logged in user:', user);
+    setLoggedInUser(user);
+  };
+
+
   return (
-    <UserAccount.Provider value={{ loggedInUser, setLoggedInUser }}>
+    <UserAccount.Provider value={{ loggedInUser, setLoggedInUser:  handleSetLoggedInUser}}>
       {children}
     </UserAccount.Provider>
   );
