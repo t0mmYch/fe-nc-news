@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import "../IndividualArticle.css";
 import { useParams } from "react-router-dom";
 import { getArticleById } from "../utils/axios";
-import { getCommentsByArticleId } from "../utils/axios";
+// import { getCommentsByArticleId } from "../utils/axios";
 import { Link } from "react-router-dom";
 import VoteOnAnArticleButton from "../components/VoteOnAnArticleButton";
 import CommentForGivenArticle from "./CommentForGivenArticle";

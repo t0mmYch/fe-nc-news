@@ -3,13 +3,13 @@ import { UserAccount } from "../contexts/UserAccount";
 import "../PostNewComment.css";
 import { postingComment } from "../utils/axios";
 
-const PostNewComment = ({article_id, onNewComment }) => {
+const PostNewComment = ({ article_id, onNewComment }) => {
   const [comment, setComment] = useState("");
   const [subNewComment, setSubNewComment] = useState(false);
-  const [successfulMessage, setSuccessfulMessage] = useState("");
+  const [successMessage, setSuccessMessage] = useState("");
   const { loggedInUser } = useContext(UserAccount);
   const [error, setError] = useState(null);
-  
+
   const handleSubmit = (e) => {
     e.preventDefault();
 
@@ -23,7 +23,7 @@ const PostNewComment = ({article_id, onNewComment }) => {
     }
 
     setSubNewComment(true);
-    setSuccessfulMessage("");
+    setSuccessMessage("");
     setError(null);
 
     postingComment(article_id, {
@@ -32,7 +32,7 @@ const PostNewComment = ({article_id, onNewComment }) => {
     })
       .then((response) => {
         setComment("");
-        setSuccessfulMessage("Comment Posted Successfully!");
+        setSuccessMessage("Comment Posted Successfully!");
         onNewComment(response.data.comment);
       })
       .catch((err) => {
@@ -40,7 +40,7 @@ const PostNewComment = ({article_id, onNewComment }) => {
       })
       .finally(() => {
         setSubNewComment(false);
-        setTimeout(() => setSuccessfulMessage(""), 3000);
+        setTimeout(() => setSuccessMessage(""), 3000);
       });
   };
 
@@ -57,9 +57,7 @@ const PostNewComment = ({article_id, onNewComment }) => {
         rows="4"
       />
       {error && <p className="error-message">{error}</p>}
-      {successfulMessage && (
-        <p className="successful-message">{successfulMessage}</p>
-      )}
+      {successMessage && <p className="success-message">{successMessage}</p>}
       <button
         type="submit"
         disabled={!loggedInUser || subNewComment || !comment.trim()}

@@ -1,5 +1,5 @@
-import { useState, useContext } from "react";
-import { useNavigate } from "react-router-dom";
+import { useState, useContext, useEffect } from "react";
+import { useNavigate, useLocation } from "react-router-dom";
 import { UserAccount } from "../contexts/UserAccount";
 import "../Login.css";
 
@@ -22,14 +22,14 @@ const Login = () => {
   ];
 
   useEffect(() => {
-    const savedUser = localStorage.getItem('loggedInUser');
+    const savedUser = localStorage.getItem("loggedInUser");
     if (savedUser) {
       try {
         const user = JSON.parse(savedUser);
         setLoggedInUser(user);
-        navigate('/articles');
+        navigate("/articles");
       } catch (err) {
-        localStorage.removeItem('loggedInUser');
+        localStorage.removeItem("loggedInUser");
       }
     }
   }, [setLoggedInUser, navigate]);
@@ -37,7 +37,9 @@ const Login = () => {
   const authenticateUser = async (username) => {
     const user = validUsers.find((user) => user.username === username);
     if (!user) {
-      throw new Error("Invalid username. Please try again or select from demo users below.");
+      throw new Error(
+        "Invalid username. Please try again or select from demo users below."
+      );
     }
     return user;
   };
@@ -50,11 +52,11 @@ const Login = () => {
 
     try {
       const user = await authenticateUser(username);
-      await new Promise(resolve => setTimeout(resolve, 1000));
+      await new Promise((resolve) => setTimeout(resolve, 1000));
       setSuccessMessage(`Welcome back, ${user.name}!`);
-      localStorage.setItem('loggedInUser', JSON.stringify(user));
+      localStorage.setItem("loggedInUser", JSON.stringify(user));
       setLoggedInUser(user);
-      await new Promise(resolve => setTimeout(resolve, 500));
+      await new Promise((resolve) => setTimeout(resolve, 500));
       const from = location.state?.from?.pathname || "/articles";
       navigate(from, { replace: true });
     } catch (err) {
@@ -70,8 +72,9 @@ const Login = () => {
   };
 
   const handleLogout = () => {
-    localStorage.removeItem('loggedInUser');
+    localStorage.removeItem("loggedInUser");
     setLoggedInUser(null);
+    navigate("/login");
   };
   if (loggedInUser) {
     return (
@@ -81,10 +84,7 @@ const Login = () => {
             <h2>Welcome, {loggedInUser.name}!</h2>
             <p>You are already logged in</p>
           </div>
-          <button 
-            onClick={handleLogout}
-            className="login-button"
-          >
+          <button onClick={handleLogout} className="login-button">
             Logout
           </button>
         </div>
@@ -118,33 +118,37 @@ const Login = () => {
             />
           </div>
           {error && <div className="error-message">{error}</div>}
-          {successMessage && <div className="success-message">{successMessage}</div>}
+          {successMessage && (
+            <div className="success-message">{successMessage}</div>
+          )}
           <button
-   type="submit"
-   className={`login-button ${isLoading ? "loading" : ""}`}
-   disabled={isLoading || !username.trim()}
- >
-   {isLoading ? "Logging in..." : "Login"}
- </button>
-</form>
+            type="submit"
+            className={`login-button ${isLoading ? "loading" : ""}`}
+            disabled={isLoading || !username.trim()}
+          >
+            {isLoading ? "Logging in..." : "Login"}
+          </button>
+        </form>
 
-<div className="demo-users">
- <p>Demo Users:</p>
- <div className="demo-users-list">
-   {validUsers.map((user) => (
-     <button
-       key={user.username}
-       onClick={() => handleDemoUserClick(user)}
-       className={`demo-user-button ${username === user.username ? "selected" : ""}`}
-       disabled={isLoading}
-     >
-       {user.username}
-     </button>
-   ))}
- </div>
-</div>
-</div>
-</div>
-);
+        <div className="demo-users">
+          <p>Demo Users:</p>
+          <div className="demo-users-list">
+            {validUsers.map((user) => (
+              <button
+                key={user.username}
+                onClick={() => handleDemoUserClick(user)}
+                className={`demo-user-button ${
+                  username === user.username ? "selected" : ""
+                }`}
+                disabled={isLoading}
+              >
+                {user.username}
+              </button>
+            ))}
+          </div>
+        </div>
+      </div>
+    </div>
+  );
 };
 export default Login;
