@@ -74,7 +74,6 @@ const IndividualArticle = () => {
         <span>💬 {article.comment_count} comments</span>
       </div>
       {article && <VoteOnAnArticleButton article={article} />}
-      <VoteOnAnArticleButton article={article} />
       <CommentForGivenArticle article_id={article_id} />
     </div>
   );
