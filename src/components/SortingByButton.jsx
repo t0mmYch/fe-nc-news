@@ -7,11 +7,15 @@ const SortingByButton = () => {
   const [activeSort, setActiveSort] = useState(
     searchParams.get("sort_by") || "created_at"
   );
-  const [order, setOrder] = useState(searchParams.get("order") || "desc");
+  const [order, setOrder] = useState(
+    searchParams.get("order") === "asc" ? "asc" : "desc"
+  );
 
   const handleSort = (sortBy) => {
-    const newOrder =
-      sortBy === activeSort ? (order === "desc" ? "asc" : "desc") : "desc";
+    let newOrder = "desc";
+    if (sortBy === activeSort) {
+      newOrder = order === "desc" ? "asc" : "desc";
+    }
 
     setActiveSort(sortBy);
     setOrder(newOrder);

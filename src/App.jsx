@@ -14,28 +14,23 @@ import Topics from "./pages/Topics";
 
 function App() {
   return (
-    <div>
-      <UserAccountProvider>
-        <div className="app">
-          <Header />
-          <Nav />
-          <main className="main-content">
-            <Routes>
-              <Route path="/" element={<Home />} />
-              <Route path="/login" element={<Login />} />
-              <Route path="/articles" element={<ListOfAllArticles />} />
-              <Route
-                path="/articles/:article_id"
-                element={<IndividualArticle />}
-              />
-              <Route path="/topics" element={<Topics />} />
-              <Route path="/topics/:topic_slug" element={<PagesTopic />} />
-              <Route path="*" element={<NotFound />} />
-            </Routes>
-          </main>
-        </div>
-      </UserAccountProvider>
-    </div>
+    <UserAccountProvider>
+      <div className="app">
+        <Header />
+        <Nav />
+        <main className="main-content">
+          <Routes>
+            <Route path="/" element={<Home />} />
+            <Route path="/login" element={<Login />} />
+            <Route path="/articles" element={<ListOfAllArticles />} />
+            <Route path="/articles/:article_id" element={<IndividualArticle />} />
+            <Route path="/topics" element={<Topics />} />
+            <Route path="/topics/:topic_slug" element={<PagesTopic />} />
+            <Route path="*" element={<NotFound />} />
+          </Routes>
+        </main>
+      </div>
+    </UserAccountProvider>
   );
 }
 

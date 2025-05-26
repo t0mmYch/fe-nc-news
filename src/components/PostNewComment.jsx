@@ -2,73 +2,81 @@ import { useState, useContext } from "react";
 import { UserAccount } from "../contexts/UserAccount";
 import "../PostNewComment.css";
 import { postingComment } from "../utils/axios";
+import {Link} from 'react-router-dom'
 
-const PostNewComment = ({article_id, onNewComment }) => {
-  const [comment, setComment] = useState("");
-  const [subNewComment, setSubNewComment] = useState(false);
-  const [successfulMessage, setSuccessfulMessage] = useState("");
+
+
+  const  PostNewComment = ({ article_id, comments, setComments }) => {
+  const [newComment, setNewComment] = useState('');
+  const [isLoading, setIsLoading] = useState(false);
+  const [error, setError] = useState('');
   const { loggedInUser } = useContext(UserAccount);
-  const [error, setError] = useState(null);
-  
-  const handleSubmit = (e) => {
+
+  const handleSubmit = async (e) => {
     e.preventDefault();
+    if (!newComment.trim()) return;
 
-    if (!loggedInUser) {
-      setError("To Post A Comment You Need To Log In");
-      return;
-    }
-    if (!comment.trim()) {
-      setError("Cannot Be Empty");
-      return;
-    }
+    setIsLoading(true);
+    setError('');
 
-    setSubNewComment(true);
-    setSuccessfulMessage("");
-    setError(null);
-
-    postingComment(article_id, {
-      username: loggedInUser.username,
-      body: comment,
-    })
-      .then((response) => {
-        setComment("");
-        setSuccessfulMessage("Comment Posted Successfully!");
-        onNewComment(response.data.comment);
-      })
-      .catch((err) => {
-        setError("Failed To Post Comment. Please Try Again.");
-      })
-      .finally(() => {
-        setSubNewComment(false);
-        setTimeout(() => setSuccessfulMessage(""), 3000);
+    try {
+      const postedComment = await postingComment(article_id, {
+        username: loggedInUser.username,
+        body: newComment
       });
+      setComments(currentComments => [
+        {
+          ...postedComment,
+          author: loggedInUser.username,
+          created_at: new Date().toISOString()
+        },
+        ...currentComments
+      ]);
+      setNewComment('');
+      
+    } catch (err) {
+      setError('Failed to post comment. Please try again.');
+    } finally {
+      setIsLoading(false);
+    }
   };
 
+  if (!loggedInUser) {
+    return (
+      <div className="comment-section">
+        <h2>Comments ({comments.length})</h2>
+        <div className="login-prompt">
+          Please <Link to="/login" className="login-link">log in</Link> to comment
+        </div>
+      </div>
+    );
+  }
+
   return (
-    <form onSubmit={handleSubmit} className="comment-form">
-      <h3>Add a Comment</h3>
-      {!loggedInUser && <p className="login-prompt">Log in to comment</p>}
-      <textarea
-        value={comment}
-        onChange={(e) => setComment(e.target.value)}
-        placeholder="Write your comment here..."
-        disabled={!loggedInUser || subNewComment}
-        className="comment-input"
-        rows="4"
-      />
-      {error && <p className="error-message">{error}</p>}
-      {successfulMessage && (
-        <p className="successful-message">{successfulMessage}</p>
-      )}
-      <button
-        type="submit"
-        disabled={!loggedInUser || subNewComment || !comment.trim()}
-        className="submit-button"
-      >
-        {subNewComment ? "Posting..." : "Post Comment"}
-      </button>
-    </form>
+    <div className="comment-section">
+      <h2>Comments ({comments.length})</h2>
+      <form onSubmit={handleSubmit} className="comment-form">
+        <textarea
+          value={newComment}
+          onChange={(e) => setNewComment(e.target.value)}
+          placeholder="Write your comment here..."
+          disabled={isLoading}
+          required
+          className={error ? 'error' : ''}
+        />
+        {error && <div className="error-message">{error}</div>}
+        <button
+          type="submit"
+          className={`submit-button ${isLoading ? 'loading' : ''}`}
+          disabled={isLoading || !newComment.trim()}
+        >
+          {isLoading ? 'Posting...' : 'Post Comment'}
+        </button>
+      </form>
+    </div>
   );
 };
+
+
 
 export default PostNewComment;

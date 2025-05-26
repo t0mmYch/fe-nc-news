@@ -4,7 +4,6 @@ import "../CommentForGivenArticle.css";
 import PostNewComment from "../components/PostNewComment";
 import { UserAccount } from "../contexts/UserAccount";
 
-
 const CommentForGivenArticle = ({ article_id }) => {
   const [comments, setComments] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
@@ -58,7 +57,7 @@ const CommentForGivenArticle = ({ article_id }) => {
 
   return (
     <section className="comments-section">
-      <PostNewComment article_id={article_id} onNewComment={handleNewComment} />
+      <CommentForGivenArticle article_id={article_id} onNewComment={handleNewComment} />
 
       <h3>Comments ({comments.length})</h3>
       {comments.length === 0 ? (

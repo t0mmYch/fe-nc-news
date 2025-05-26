@@ -10,8 +10,6 @@ const VoteOnAnArticleButton = ({ article }) => {
 
   const handleTheVote = async(increment) => {
     if (isLoading) return;
-
-    // If clicking the same button again, remove the vote
     if ((increment === 1 && userVote === 1) || (increment === -1 && userVote === -1)) {
       const previousVote = userVote;
       setUserVote(0);

@@ -16,18 +16,18 @@
 
 .nav-links {
     display: flex;
-    gap: 2rem;
+    gap: 3rem;
     align-items: center;
     max-width: 1200px;
     margin: 0 auto;
-    padding: 0.5rem 0;
+    padding:1rem;
 }
 
 .nav-links a {
     color: #EDF060;
     text-decoration: none;
     font-size: 1.5rem;
-    font-weight: bold;
+    font-weight: 1000;
     padding: 0.8rem 1.5rem;
     border: 2px solid transparent;
     border-radius: 8px;
